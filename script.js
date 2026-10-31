@@ -168,9 +168,11 @@
         const video = document.createElement('video');
         video.className = 'deck-card-video';
         video.muted = true;
+        video.setAttribute('muted', '');
         video.loop = true;
         video.autoplay = false;
         video.playsInline = true;
+        video.setAttribute('playsinline', '');
         video.preload = 'none';
         video.poster = theme.imagem;
         video.setAttribute('aria-hidden', 'true');
@@ -225,11 +227,21 @@
         if (!video) return;
         if (index === active && deckVisible) {
           video.preload = 'auto';
+          if (video.readyState === 0 && !video.dataset.loadRequested) {
+            video.dataset.loadRequested = 'true';
+            video.load();
+          }
           const playResult = video.play();
-          if (playResult && typeof playResult.catch === 'function') playResult.catch(() => {});
+          if (playResult && typeof playResult.catch === 'function') {
+            playResult.catch(() => {
+              // O poster permanece visível se o navegador bloquear a reprodução.
+            });
+          }
         } else {
           video.pause();
-          try { video.currentTime = 0; } catch { /* Metadados ainda não carregados. */ }
+          try {
+            if (video.readyState > 0) video.currentTime = 0;
+          } catch { /* Metadados ainda não carregados. */ }
         }
       });
     }

@@ -1,18 +1,18 @@
-# Convite Premium — Funil integrado (versão de teste)
+# Convite Premium — Funil integrado V5
 
-Projeto estático **mobile-first** para GitHub Pages. A primeira página reúne a VSL e o catálogo; o quiz continua em uma página separada.
+Projeto estático **mobile-first** para GitHub Pages. A VSL e o catálogo ficam na mesma página; o quiz continua em uma página separada.
 
 ## Estrutura
 
 - `index.html` — VSL em tela cheia + catálogo na mesma página + benefícios + recursos + processo.
 - `quiz.html` — briefing personalizado, tema pré-selecionado, idade ajustável e envio preparado para WhatsApp.
 - `catalogo.html` — redirecionamento de compatibilidade para `index.html#catalogo` (links antigos continuam funcionando).
-- `style.css` — identidade visual, animações, baralho e layout mobile-first.
-- `script.js` — reprodução do vídeo, animações, baralho, seleção de tema, quiz e WhatsApp.
+- `style.css` — identidade visual, transições, baralho e layout mobile-first.
+- `script.js` — reprodução da VSL, animações, baralho, vídeos ativos, seleção de tema, quiz e WhatsApp.
 - `config.js` — número de WhatsApp, vídeo e cadastro de temas.
-- `assets/logo-convite-premium.webp` — logo utilizada nos cabeçalhos e rodapé.
-- `assets/video/vsl-preview.mp4` e `assets/video/vsl-preview.webm` — vídeo ambiente demonstrativo em dois formatos para testar o autoplay e a sequência de texto.
-- `assets/temas/` — sete capas demonstrativas; a primeira também possui MP4 e WebM curtos para testar o vídeo no baralho.
+- `assets/logo-convite-premium.webp` — logo utilizada na VSL e no rodapé.
+- `assets/video/` — vídeo ambiente demonstrativo da VSL, em MP4 e WebM, e seu poster.
+- `assets/temas/` — sete capas demonstrativas e vídeos MP4/WebM para cada carta.
 
 ## O que está implementado
 
@@ -21,22 +21,26 @@ Projeto estático **mobile-first** para GitHub Pages. A primeira página reúne 
 - Vídeo em tela cheia com `autoplay`, `muted`, `loop` e `playsinline`.
 - O vídeo inicia sem áudio; o botão **Ativar som / Som ativado** permite ligar ou desligar o áudio após interação do visitante.
 - Após **3 segundos de reprodução efetiva**, a headline aparece em fade de baixo para cima; depois entra a subheadline e, por último, o botão **Ver temas**.
-- O botão flutua suavemente e executa uma ondulação ao toque; em seguida rola para o catálogo na mesma página.
+- O botão tem texto centralizado, sem seta lateral, flutua suavemente e executa uma ondulação ao toque; em seguida rola para o catálogo na mesma página.
+- Não há faixa branca de cabeçalho entre a VSL e o catálogo.
+- A transição de fundo entre a VSL e o catálogo começa no mesmo azul-marinho escuro, misturando-se gradualmente ao azul do catálogo.
 - Não há linhas de progresso nem a mensagem “prévia estática / vídeo pendente”.
 
 ### Catálogo
 
-- O cabeçalho mostra apenas **Catálogo**, em tamanho maior, sem estrela ou “15 anos”.
-- A seção “Muito além de uma imagem / Antes da festa, um primeiro encanto” aparece logo após o cabeçalho.
+- O catálogo começa imediatamente após a VSL, sem uma faixa branca com logo, título ou botão.
+- A seção “Muito além de uma imagem / Antes da festa, um primeiro encanto” é o início do catálogo.
 - O baralho é o seletor de temas: sete temas demonstrativos e a carta **Sua ideia** como última opção.
 - Arraste para a esquerda/direita, use as setas ou navegue pelo teclado. A carta ativa inclina e acompanha o dedo; as cartas de trás mudam de posição com transição elástica.
-- Só a primeira carta usa vídeo (MP4 com WebM alternativo) e reproduz automaticamente, sem áudio, quando o baralho entra na tela e essa carta está na frente. As outras cartas usam capas estáticas. Ao trocar de carta ou sair da área visível, o vídeo é pausado.
+- **Todas as sete cartas de temas possuem MP4 e WebM.** Somente a carta que está na frente e quando o baralho está visível reproduz seu vídeo, automaticamente e sem áudio. As outras cartas ficam em pausa e mostram a capa/poster. Ao trocar de carta ou sair da área visível, o vídeo anterior é pausado.
+- A carta **Sua ideia** é uma carta gráfica final, sem vídeo, e conduz ao quiz com a descrição opcional.
 - Tocar na carta da frente seleciona o tema e abre o quiz.
 - O degradê inferior é suave, permanece durante a rolagem e desaparece ao chegar ao final da página.
 - Benefícios, “Tudo em um único link”, processo e rodapé foram mantidos.
 
 ### Quiz
 
+- O cabeçalho do quiz não mostra logo nem o título “Catálogo”; contém apenas o botão **← Voltar**, alinhado à esquerda.
 - O tema escolhido é exibido em um cartão com cores e textura configuradas para aquele tema.
 - A idade começa selecionada em **15 anos**. Se o visitante escolher **Escolher outra idade**, aparece um campo numérico obrigatório.
 - O campo de local pede o link do Google Maps ou do mapa do local; é opcional e pode ser preenchido depois.
@@ -54,14 +58,23 @@ Projeto estático **mobile-first** para GitHub Pages. A primeira página reúne 
 7. Céu Estrelado
 8. Sua ideia (carta final automática)
 
-As sete artes são **mockups demonstrativos para testar o baralho**, não convites finais vendidos. Substitua as capas pelos materiais reais quando estiverem prontos. Para adicionar um tema, inclua um novo objeto no array `temas` de `config.js` e coloque a imagem correspondente em `assets/temas/`. A carta “Sua ideia” é adicionada automaticamente e não deve ser cadastrada no array.
+As sete artes são **mockups demonstrativos para testar o baralho**, não convites finais vendidos.
+
+### Sobre os vídeos dos temas
+
+- Azul & Dourado usa o vídeo demonstrativo já existente.
+- Os outros seis vídeos são loops curtos criados a partir das capas estáticas, com movimento suave de aproximação/afastamento para demonstrar o autoplay ao trocar a carta.
+- Esses seis loops **não representam animações reais dos convites finais**. Substitua-os pelos vídeos finais dos convites quando estiverem prontos.
+- Cada tema usa `videoMp4` e `videoWebm` no `config.js`. O MP4 é a primeira opção, para melhor compatibilidade com celulares; o WebM é a alternativa.
+
+Para adicionar outro tema, inclua um objeto no array `temas` de `config.js`, coloque a capa em `assets/temas/` e adicione os caminhos `videoMp4` e `videoWebm`. A carta **Sua ideia** é inserida automaticamente e não deve ser cadastrada no array.
 
 ## Vídeos: o que substituir antes de divulgar
 
-Este pacote inclui dois vídeos de teste:
+Este pacote inclui vídeos demonstrativos:
 
 - `assets/video/vsl-preview.mp4` / `assets/video/vsl-preview.webm`: fundo animado demonstrativo da VSL. **Não é a VSL comercial final** e não contém narração/áudio.
-- `assets/temas/azul-dourado.mp4` / `assets/temas/azul-dourado.webm`: animação curta para testar a reprodução apenas na primeira carta do baralho.
+- `assets/temas/*.mp4` e `assets/temas/*.webm`: loops de teste para que cada tema reproduza vídeo quando assumir a posição principal.
 
 Quando seu vídeo real da VSL estiver pronto:
 
@@ -72,21 +85,19 @@ Quando seu vídeo real da VSL estiver pronto:
 
 Autoplay com áudio não é garantido por navegadores móveis. Por isso, o vídeo começa silencioso; o áudio só é ativado após o toque no controle.
 
-Para adicionar vídeo a outro tema, inclua `videoMp4: 'assets/temas/nome-do-arquivo.mp4'` e/ou `videoWebm: 'assets/temas/nome-do-arquivo.webm'` no objeto daquele tema em `config.js`. O script só reproduz o vídeo da carta ativa; as demais continuam com suas capas.
-
 ## Configuração obrigatória antes da publicação
 
 1. **WhatsApp:** confirme o valor `whatsapp` em `config.js` (formato internacional com DDI + DDD + número, somente dígitos). O projeto preservou o número que já constava na versão anterior: `5588994897535`.
 2. **VSL:** substitua o vídeo ambiente demonstrativo pelo vídeo comercial real.
-3. **Temas:** substitua os mockups pelos convites/temas finais e atualize nomes, descrições, paletas e texturas no `config.js`.
-4. **Primeira carta:** quando tiver o WebM final do tema Azul & Dourado, substitua `assets/temas/azul-dourado.webm` ou retire a propriedade `video` do tema se não quiser vídeo nele.
+3. **Temas:** substitua os mockups pelas artes finais e atualize nomes, descrições, paletas e texturas no `config.js`.
+4. **Vídeos dos temas:** substitua os loops de demonstração por prévias reais de cada convite quando disponíveis.
 
 ## Como publicar no GitHub Pages
 
 1. Faça backup do repositório atual.
 2. Extraia **todo o conteúdo deste ZIP** diretamente na raiz do repositório `LP-Catalogo`, mantendo a pasta `assets/` e os arquivos `index.html`, `quiz.html`, `catalogo.html`, `style.css`, `script.js`, `config.js` e `README.md` na raiz.
 3. Faça commit e aguarde o GitHub Pages atualizar.
-4. Teste em celular real e em aba anônima: autoplay silencioso, ativar som, texto após 3 segundos, rolagem do botão, arraste das cartas, seleção de todos os temas, carta final “Sua ideia”, idade alternativa, campo do Maps e mensagem do WhatsApp.
+4. Teste em celular real: autoplay silencioso da VSL, ativar som, texto após 3 segundos, botão centralizado, transição sem cabeçalho branco, troca entre as sete cartas com vídeo, carta final **Sua ideia**, botão Voltar, idade alternativa, campo do Maps e mensagem do WhatsApp.
 
 ## Privacidade e limites
 
